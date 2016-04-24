@@ -1,0 +1,43 @@
+:2015
+
+tls /cert/caddy.crt /cert/caddy.key
+
+log /log/access.log {
+  rotate {
+      size 5 # Rotate after 5 MB
+      # age  14  # Keep log files for 14 days
+      # keep 10  # Keep at most 10 log files
+    }
+}
+
+errors {
+	log /log/error.log {
+		size 5 # Rotate after 50 MB
+		#age  30 # Keep rotated files for 30 days
+		#keep 5  # Keep at most 5 log files
+	}
+}
+
+proxy /api api:80 {
+	# policy least_conn
+	fail_timeout 5s
+	max_fails 3
+	# health_check path [duration]
+	# proxy_header name value
+	without /api
+	# except ignored_paths...
+	insecure_skip_verify
+	# preset
+}
+
+proxy /signup signup:80 {
+	# policy least_conn
+	fail_timeout 5s
+	max_fails 3
+	# health_check path [duration]
+	# proxy_header name value
+	# without /api
+	# except ignored_paths...
+	insecure_skip_verify
+	# preset
+}

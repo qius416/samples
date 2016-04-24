@@ -1,0 +1,5 @@
+cert/
+data/
+log/
+.tmp
+.publish/
