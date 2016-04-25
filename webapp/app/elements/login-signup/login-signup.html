@@ -19,10 +19,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <gold-email-input label="your email address" value={{email}}></gold-email-input>
     <paper-input label="password" type="password" value={{password}}></paper-input>
-    <paper-button id="signup" raised>Submit</paper-button>
+    <paper-button on-tap="signup" raised>Submit</paper-button>
+    <paper-button on-tap="login" raised>Login</paper-button>
     <iron-ajax
       id="api"
-      url="/signup"
       content-type="application/json"
       method="POST"
       on-response="handleResponse"
@@ -36,16 +36,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'login-signup',
 
-      listeners: {
-        'signup.tap': 'signup'
-      },
-
       properties: {
         email:String,
         password:String
       },
 
       signup: function(e) {
+        this.$.api.url = "/auth/signup";
+        //this.$.api.url = "http://localhost:7000/signup";
+        this.$.api.body = {
+          email:    this.email,
+          password: this.password
+        };
+        this.$.api.generateRequest();
+      },
+
+      login: function(e){
+        this.$.api.url = "/auth/login";
+        //this.$.api.url = "http://localhost:7000/login";
         this.$.api.body = {
           email:    this.email,
           password: this.password
@@ -54,6 +62,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       handleResponse:function(e){
+        sessionStorage.setItem('token', this.$.api.lastResponse.token);
+        //console.log(sessionStorage.getItem('token'));
         this.$.toast.text = "created!"
         this.$.toast.toggle();
       },

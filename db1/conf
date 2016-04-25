@@ -57,7 +57,7 @@ canonical-address=192.168.1.3
 ## The host:port of a node that rethinkdb will connect to
 ## This option can be specified multiple times.
 ## Default: none
-join=192.168.1.4:29015
+#join=192.168.1.4:29015
 
 ## All ports used locally will have this value added
 ## Default: 0
