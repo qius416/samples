@@ -30,7 +30,7 @@ proxy /api api:80 {
 	# preset
 }
 
-proxy /auth signup:80 {
+proxy /auth auth:80 {
 	# policy least_conn
 	fail_timeout 5s
 	max_fails 3

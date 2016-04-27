@@ -14,9 +14,9 @@ services:
     image: test_api
     expose:
       - "80"
-  signup:
-    build: ./signup
-    image: signup
+  auth:
+    build: ./auth
+    image: auth
     expose:
       - "80"
   db:
