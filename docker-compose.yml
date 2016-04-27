@@ -5,7 +5,7 @@ services:
     volumes:
       - ./Caddyfile:/etc/Caddyfile
       - ./log:/log
-      - ./cert:/cert
+      - ./cert:/gcert
       - ./webapp/dist:/srv
     ports:
       - "2015:2015"
